@@ -17,9 +17,9 @@ const Homelayout = () => {
                 </section>
                 <section className='w-11/12 mx-auto  '>
                 <Navber></Navber></section>
-            <main className='w-11/12 mx-auto my-12 grid gap-5 grid-cols-12'>
-                <aside className='col-span-3 sticky top-0 h-fit'>
-                    <Leftaside></Leftaside>
+            <main className='w-11/12 mx-auto my-12 md:grid gap-5 grid-cols-12'>
+                <aside className='col-span-3 md:sticky top-0 h-fit'>
+                    <Leftaside></Leftaside> 
                 </aside>
                 <section className="main col-span-6">
                     <Outlet></Outlet>
