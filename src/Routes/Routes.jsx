@@ -2,6 +2,11 @@ import { createBrowserRouter } from "react-router";
 import Homelayout from "../Layout/Homelayout";
 import Home from "../Pages/Home";
 import Categorynews from "../Pages/Categorynews";
+import Authenticationlayout from "../Layout/Authenticationlayout";
+import Login from "../Component/Authlayout/Login";
+import Register from "../Component/Authlayout/Register";
+import Newsdetails from "../Component/Newsdetails";
+import Privateroute from "../Authprovider/Privateroute";
 
   const router = createBrowserRouter([
     {
@@ -14,7 +19,9 @@ import Categorynews from "../Pages/Categorynews";
             },
             {
                 path: '/category/:id',
-                element:<Categorynews></Categorynews>,
+                element:<Privateroute>
+                    <Categorynews></Categorynews>
+                </Privateroute>,
                 loader: () => fetch('/news.json')
             
             }
@@ -22,13 +29,26 @@ import Categorynews from "../Pages/Categorynews";
         
     },
     {
-        path: '/about',
-        element: <h2>About section</h2>,
+        path: '/auth',
+        element: <Authenticationlayout></Authenticationlayout>,
+        children: [
+            {
+                path:'/auth/login',
+                element: <Login></Login>
+            },
+            {
+                path:'/auth/register',
+                element: <Register></Register>
+            }
+        ]
     },
     {
-        path: '/carear',
-        element: <h2>Carer section</h2>
+        path: '/newsdetails/:id',
+        element: <Newsdetails></Newsdetails>,
+        loader: () => fetch('/news.json'),
+        
     },
+   
     {
         path: '/*',
         element: <h2>error 404</h2>
