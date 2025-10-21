@@ -6,9 +6,7 @@ import Loader from '../Pages/Loader';
 const Privateroute = ({children}) => {
      
     const {user,loader} = use(Authcontext);
-    const location = useLocation();
-    console.log(location);
-    
+    const location = useLocation();    
 
     if(loader){
         return <Loader></Loader>

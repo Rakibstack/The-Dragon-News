@@ -19,8 +19,8 @@ const Navber = () => {
                     <NavLink to='/career'>Career</NavLink>
                 </nav>
                 </div>   
-            <div className="user flex justify-center mt-3 gap-3">
-                <img src={userimg} alt="" />
+            <div className="user flex items-center justify-center mt-3 gap-3">
+                <img className='w-14  rounded-full' src={user ? user.photoURL : userimg} />
                 {
                     user ? <Link onClick={Handlelogout} to='/auth/login' className='btn btn-primary px-8'>Log out</Link> : <Link to='/auth/login' className='btn btn-primary px-8'>Login</Link>
                 }

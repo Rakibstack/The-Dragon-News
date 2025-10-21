@@ -1,29 +1,42 @@
-import React, { use } from 'react';
+import React, { use, useState } from 'react';
 import { Authcontext } from '../../Authprovider/Authprovider';
+import { useNavigate } from 'react-router';
 
 const Register = () => {
-  const {createuser,} = use(Authcontext);
+  const {createuser,setuser,updateuser} = use(Authcontext);
+  const [nameerror,setnameerror] =useState();
+  const [error,seterror] =useState();
+   const navigate = useNavigate()
 
   const Handleregister = (e) => {
    e.preventDefault();
     const form = e.target ;
-   const name = form.name.value;    
+   const name = form.name.value;
+   if(name.length < 6){
+  setnameerror('Name Should be More Than 6 Character')
+   }    
    const photo = form.photo.value;    
    const email = form.email.value;    
    const password = form.password.value;    
-   console.log(name,photo,email,password);
+  //  console.log(photo,email,password,name);
+   
    createuser(email,password)
    .then(result => {
     const user = result.user;
-    console.log(user);
+    updateuser({displayName: name,photoURL:photo})
+    .then(() => {
+    setuser({...user, displayName: name, photoURL:photo})
+     navigate('/');
+    }).catch(error => {
+      console.log(error);
+      
+    })
+    
    })
    .catch(error => {
-    const errormessage = error.message;
-      alert(errormessage)
+    const errormessage = error.code;
+      seterror(errormessage)
    })
-
-  
-   
    
   }
     return (
@@ -44,6 +57,14 @@ const Register = () => {
           {/* password */}
           <label className="label">Password</label>
           <input type="password" name='password' required className="input bg-base-200" placeholder="Enter your password" />
+          <div>
+             {
+              nameerror && <h2 className='text-red-400 mt-2'>{nameerror}</h2>
+             }
+             {
+               <h2 className='text-red-500 font-medium mt-2'>{error}</h2>
+             }
+          </div>
           <button className="btn btn-neutral mt-4">Register</button>
         </fieldset>
       </form>
